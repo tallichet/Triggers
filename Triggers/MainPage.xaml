@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="Triggers.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Triggers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:triggers="using:Triggers.StateTriggers"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="mainStatesGroup">
+                <VisualState x:Name="LeftRightState">
+                    <VisualState.StateTriggers>
+                        <triggers:BooleanTrigger IsActive="{x:Bind toggleLeft.IsChecked, Mode=OneWay}" />
+                        <triggers:BooleanTrigger IsActive="{x:Bind toggleRight.IsChecked, Mode=OneWay}" />
+                    </VisualState.StateTriggers>   
+                    <VisualState.Setters>
+                        <Setter Target="label.Text" Value="Left + Right" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="RightLeftState">
+                    <VisualState.StateTriggers>
+                        <triggers:BooleanTrigger IsActive="{x:Bind toggleRight.IsChecked, Mode=OneWay}" />
+                        <triggers:BooleanTrigger IsActive="{x:Bind toggleLeft.IsChecked, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="label.Text" Value="Right + Left" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="LeftState">
+                    <VisualState.StateTriggers>
+                        <triggers:BooleanTrigger IsActive="{x:Bind toggleLeft.IsChecked, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="label.Text" Value="Left" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="RightState">
+                    <VisualState.StateTriggers>
+                        <triggers:BooleanTrigger IsActive="{x:Bind toggleRight.IsChecked, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="label.Text" Value="Right" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="FallbackState">
+                    <VisualState.StateTriggers>
+                        <triggers:AlwaysOnTrigger />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="label.Text" Value="Fallback" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ToggleButton x:Name="toggleLeft" Content="Toggle Left"
+                      Grid.Column="0"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <ToggleButton x:Name="toggleRight" Content="Toggle Right" 
+                      Grid.Column="2"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <TextBlock x:Name="label" Text="No states" Grid.Column="1"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Grid>
+</Page>
